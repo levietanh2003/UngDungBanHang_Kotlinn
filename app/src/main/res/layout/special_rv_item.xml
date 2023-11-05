@@ -13,7 +13,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <ImageView
+<<<<<<< HEAD
                 android:id="@+id/imageSpecialRvItem"
+=======
+                android:id="@+id/img_ad"
+>>>>>>> myremote/main
                 android:layout_width="90dp"
                 android:layout_height="90dp"
                 android:layout_marginStart="16dp"
@@ -22,11 +26,19 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+<<<<<<< HEAD
                 android:id="@+id/tvSpecoalProducName"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toEndOf="@id/imageSpecialRvItem"
                 app:layout_constraintTop_toTopOf="@id/imageSpecialRvItem"
+=======
+                android:id="@+id/tv_ad_name"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/img_ad"
+                app:layout_constraintTop_toTopOf="@id/img_ad"
+>>>>>>> myremote/main
                 android:text="Áo NIKE"
                 android:fontFamily="@font/poppins_thin"
                 android:textStyle="bold"
@@ -36,11 +48,19 @@
                 android:layout_marginTop="7dp"
                 />
         <TextView
+<<<<<<< HEAD
                 android:id="@+id/tvSpecialProductPrice"
                 android:layout_width="77dp"
                 android:layout_height="25dp"
                 app:layout_constraintStart_toStartOf="@id/tvSpecoalProducName"
                 app:layout_constraintTop_toBottomOf="@id/tvSpecoalProducName"
+=======
+                android:id="@+id/tv_ad_price"
+                android:layout_width="77dp"
+                android:layout_height="25dp"
+                app:layout_constraintStart_toStartOf="@id/tv_ad_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_ad_name"
+>>>>>>> myremote/main
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:text="230.000 VND"
@@ -57,7 +77,11 @@
                 android:textSize="10sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
                 app:layout_constraintTop_toBottomOf="@id/tvSpecialProductPrice"
+=======
+                app:layout_constraintTop_toBottomOf="@id/tv_ad_price"
+>>>>>>> myremote/main
                 android:layout_marginTop="10dp"
                 android:textAllCaps="false"
                 />

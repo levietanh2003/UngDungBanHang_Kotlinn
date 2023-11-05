@@ -1,5 +1,6 @@
 package com.example.ungdungbanhang.fragments.categories
 
+<<<<<<< HEAD
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -79,4 +80,10 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
 
         }
     }
+=======
+import androidx.fragment.app.Fragment
+import com.example.ungdungbanhang.R
+
+class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
+>>>>>>> myremote/main
 }

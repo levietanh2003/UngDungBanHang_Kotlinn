@@ -6,9 +6,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.databinding.ActivityShopingBinding
+<<<<<<< HEAD
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
+=======
+
+>>>>>>> myremote/main
 class ShoppingActivity : AppCompatActivity() {
     /*val binding by lazy {
         ActivityShopingBinding.inflate(layoutInflater)
@@ -17,7 +21,14 @@ class ShoppingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shoping)
 
+<<<<<<< HEAD
         //val navController = findNavController(R.id.shoppingHostFragment)
         //binding.bottomNavigation.setupWithNavController(navController)
     }
 }
+=======
+        /*val navController = findNavController(R.id.shopingHostFragment)
+        binding.bottomNavigation.setupWithNavController(navController)*/
+    }
+}
+>>>>>>> myremote/main
