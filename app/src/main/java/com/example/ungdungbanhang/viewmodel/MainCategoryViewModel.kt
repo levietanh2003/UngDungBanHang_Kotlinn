@@ -29,7 +29,7 @@ class MainCategoryViewModel@Inject constructor(
             _specialProducts.emit(Resource.Loading())
         }
         firestore
-            .collection("Products").whereEqualTo("category","Product").get().addOnSuccessListener { result ->
+            .collection("Product").whereEqualTo("category","Special Products").get().addOnSuccessListener { result ->
                 val specialProductsList = result.toObjects(Product::class.java)
                 viewModelScope.launch {
                     _specialProducts.emit(Resource.Success(specialProductsList))

@@ -16,8 +16,8 @@ class SpecialProductsApdater: RecyclerView.Adapter<SpecialProductsApdater.Specia
         fun bind(product: Product){
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imageSpecialRvItem)
-                tvSpecoalProducName.text = product.name
-                tvSpecialProductPrice.text = product.price.toString() + "VND"
+                tvSpecialProductName.text = product.name
+                tvSpecialPrdouctPrice.text = product.price.toString()
             }
         }
     }
@@ -49,6 +49,4 @@ class SpecialProductsApdater: RecyclerView.Adapter<SpecialProductsApdater.Specia
         val product = differ.currentList[position]
         holder.bind(product)
     }
-
-
 }
