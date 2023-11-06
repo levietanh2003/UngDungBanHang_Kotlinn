@@ -120,7 +120,7 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
 
     private fun setUpBestProductsRv() {
         bestProudctApdapter = BestProudctApdapter()
-        binding.rvSpecialProducts.apply {
+        binding.rvBestsProducts.apply {
             layoutManager = GridLayoutManager(requireContext(),2,GridLayoutManager.VERTICAL,false)
             adapter = bestProudctApdapter
         }
@@ -140,9 +140,5 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
             adapter = specialProductsApdater
         }
-    }
-
-
-    class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
     }
 }

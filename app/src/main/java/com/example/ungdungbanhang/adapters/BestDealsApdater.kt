@@ -1,6 +1,8 @@
 package com.example.ungdungbanhang.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -23,8 +25,11 @@ class BestDealsApdater: RecyclerView.Adapter<BestDealsApdater.BestDealsViewHolde
                     val priceAffterOffer = remainingPricePercentage * product.price
                     //tvNewPrice.text = "$ ${String.format("%.2f",priceAffterOffer)}"
                     tvNewPrice.text = formatTienTeVietNam(priceAffterOffer.toDouble())
+                    tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
-                tvOldPrice.text = "$ ${product.price}"
+                if(product.offerPercentage == null)
+                    tvNewPrice.visibility = View.VISIBLE
+                tvOldPrice.text = formatTienTeVietNam(product.price.toDouble())
                 tvDealProductName.text = product.name
             }
         }
