@@ -37,6 +37,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
             TableFragment(),
             TrousersFragment(),
         )
+
+        binding.viewpagerHome.isUserInputEnabled = false
         val viewPager2Adapter = HomeViewpagerAdapter(categoriesFragments,childFragmentManager,lifecycle)
         binding.viewpagerHome.adapter = viewPager2Adapter
         // phan trang
