@@ -11,32 +11,29 @@ import com.bumptech.glide.Glide
 import com.example.ungdungbanhang.data.Product
 import com.example.ungdungbanhang.databinding.BestDealsRvItemBinding
 import com.example.ungdungbanhang.databinding.ProductRvItemBinding
+import com.example.ungdungbanhang.helper.getProductPrice
 import java.text.NumberFormat
 import java.util.*
 
 class BestProudctApdapter: RecyclerView.Adapter<BestProudctApdapter.BestProductViewHolder>() {
-
-
     inner class BestProductViewHolder( private val binding: ProductRvItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(product: Product){
             binding.apply {
+                val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
+                //tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
+                tvNewPrice.text = formatTienTeVietNam(priceAfterOffer.toDouble())
+                tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                if (product.offerPercentage == null)
+                    tvNewPrice.visibility = View.INVISIBLE
+
                 Glide.with(itemView).load(product.images[0]).into(imgProduct)
-                product.offerPercentage?.let {
-                    val remainingPricePercentage = 1f  - it
-                    val priceAffterOffer = remainingPricePercentage * product.price
-                    //tvNewPrice.text = "$ ${String.format("%.2f",priceAffterOffer)}"
-                    tvNewPrice.text = formatTienTeVietNam(priceAffterOffer.toDouble())
-                    // gach ngang gia da giam
-                    tvPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                }
-                if(product.offerPercentage == null)
-                    tvNewPrice.visibility = View.VISIBLE
                 //tvPrice.text = "$ ${product.price}"
                 tvPrice.text = formatTienTeVietNam(product.price.toDouble())
                 tvName.text = product.name
             }
         }
     }
+
     private val diffCallback = object : DiffUtil.ItemCallback<Product>(){
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {
             return  oldItem.id == newItem.id
