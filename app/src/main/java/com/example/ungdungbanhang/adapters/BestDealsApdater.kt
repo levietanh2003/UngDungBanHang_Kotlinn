@@ -29,7 +29,6 @@ class BestDealsApdater: RecyclerView.Adapter<BestDealsApdater.BestDealsViewHolde
                 }
                 if(product.offerPercentage == null)
                     tvNewPrice.visibility = View.VISIBLE
-                //tvOldPrice.text = formatTienTeVietNam(product.price.toDouble())
                 tvOldPrice.text = formatPriceVN(product.price.toDouble())
                 tvDealProductName.text = product.name
             }

@@ -28,7 +28,6 @@ class BestProudctApdapter: RecyclerView.Adapter<BestProudctApdapter.BestProductV
                     tvNewPrice.visibility = View.INVISIBLE
 
                 Glide.with(itemView).load(product.images[0]).into(imgProduct)
-                //tvPrice.text = "$ ${product.price}"
                 tvPrice.text = formatPriceVN(product.price.toDouble())
                 tvName.text = product.name
             }
