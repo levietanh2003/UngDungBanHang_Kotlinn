@@ -26,7 +26,7 @@
 
 ## Công nghệ sử dụng
 
-- Ngôn ngữ : Kotlin
+- Ngôn ngữ : Kotlin MVVM
 - Cơ sỡ dữ liệu: Firebase
 
 ## Đóng góp
