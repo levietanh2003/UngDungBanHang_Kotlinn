@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.ungdungbanhang.data.Product
 import com.example.ungdungbanhang.databinding.FragmentHomeBinding
 import com.example.ungdungbanhang.databinding.SpecialRvItemBinding
+import com.example.ungdungbanhang.helper.formatPriceVN
 
 class SpecialProductsApdater: RecyclerView.Adapter<SpecialProductsApdater.SpecialProductsViewHoslder>() {
     inner class SpecialProductsViewHoslder(private  val binding: SpecialRvItemBinding):RecyclerView.ViewHolder(binding.root){
@@ -17,7 +18,7 @@ class SpecialProductsApdater: RecyclerView.Adapter<SpecialProductsApdater.Specia
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imageSpecialRvItem)
                 tvSpecialProductName.text = product.name
-                tvSpecialPrdouctPrice.text = product.price.toString()
+                tvSpecialPrdouctPrice.text = formatPriceVN(product.price.toDouble())
             }
         }
     }

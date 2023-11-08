@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.ungdungbanhang.data.Product
 import com.example.ungdungbanhang.databinding.BestDealsRvItemBinding
+import com.example.ungdungbanhang.helper.formatPriceVN
 import java.text.NumberFormat
 import java.util.Currency
 
@@ -23,13 +24,13 @@ class BestDealsApdater: RecyclerView.Adapter<BestDealsApdater.BestDealsViewHolde
                 product.offerPercentage?.let {
                     val remainingPricePercentage = 1f  - it
                     val priceAffterOffer = remainingPricePercentage * product.price
-                    //tvNewPrice.text = "$ ${String.format("%.2f",priceAffterOffer)}"
-                    tvNewPrice.text = formatTienTeVietNam(priceAffterOffer.toDouble())
+                    tvNewPrice.text = formatPriceVN(priceAffterOffer.toDouble())
                     tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 }
                 if(product.offerPercentage == null)
                     tvNewPrice.visibility = View.VISIBLE
-                tvOldPrice.text = formatTienTeVietNam(product.price.toDouble())
+                //tvOldPrice.text = formatTienTeVietNam(product.price.toDouble())
+                tvOldPrice.text = formatPriceVN(product.price.toDouble())
                 tvDealProductName.text = product.name
             }
         }
@@ -61,12 +62,5 @@ class BestDealsApdater: RecyclerView.Adapter<BestDealsApdater.BestDealsViewHolde
 
     override fun getItemCount(): Int {
         return differ.currentList.size
-    }
-
-    // doi tien te
-  fun formatTienTeVietNam(giaTienTrongVND: Double): String {
-        val numberFormat = NumberFormat.getCurrencyInstance()
-        numberFormat.currency = Currency.getInstance("VND")
-        return numberFormat.format(giaTienTrongVND)
     }
 }

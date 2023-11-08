@@ -9,26 +9,27 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.ungdungbanhang.data.Product
-import com.example.ungdungbanhang.databinding.BestDealsRvItemBinding
 import com.example.ungdungbanhang.databinding.ProductRvItemBinding
+import com.example.ungdungbanhang.helper.formatPriceVN
 import com.example.ungdungbanhang.helper.getProductPrice
-import java.text.NumberFormat
+
 import java.util.*
+
 
 class BestProudctApdapter: RecyclerView.Adapter<BestProudctApdapter.BestProductViewHolder>() {
     inner class BestProductViewHolder( private val binding: ProductRvItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(product: Product){
             binding.apply {
                 val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
-                //tvNewPrice.text = "$ ${String.format("%.2f", priceAfterOffer)}"
-                tvNewPrice.text = formatTienTeVietNam(priceAfterOffer.toDouble())
+                tvNewPrice.text  = formatPriceVN(priceAfterOffer.toDouble())
                 tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+
                 if (product.offerPercentage == null)
                     tvNewPrice.visibility = View.INVISIBLE
 
                 Glide.with(itemView).load(product.images[0]).into(imgProduct)
                 //tvPrice.text = "$ ${product.price}"
-                tvPrice.text = formatTienTeVietNam(product.price.toDouble())
+                tvPrice.text = formatPriceVN(product.price.toDouble())
                 tvName.text = product.name
             }
         }
@@ -64,9 +65,8 @@ class BestProudctApdapter: RecyclerView.Adapter<BestProudctApdapter.BestProductV
     }
 
     // doi tien te
-    fun formatTienTeVietNam(giaTienTrongVND: Double): String {
-        val numberFormat = NumberFormat.getCurrencyInstance()
-        numberFormat.currency = Currency.getInstance("VND")
-        return numberFormat.format(giaTienTrongVND)
-    }
+    /*fun formatTienTeVietNam(amount: Double): String {
+        val format = NumberFormat.getCurrencyInstance(Locale("vi", "VN"))
+        return format.format(amount)
+    }*/
 }
