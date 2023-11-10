@@ -13,8 +13,8 @@ import com.example.ungdungbanhang.databinding.FragmentBaseCategoryBinding
 
 open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
     private lateinit var binding: FragmentBaseCategoryBinding
-    private val offerApdater: BestProudctApdapter by lazy { BestProudctApdapter() }
-    private val bestProudctApdapter: BestProudctApdapter by lazy { BestProudctApdapter() }
+    protected val offerApdater: BestProudctApdapter by lazy { BestProudctApdapter() }
+    protected val bestProudctApdapter: BestProudctApdapter by lazy { BestProudctApdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,8 +30,17 @@ open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
 
         setUpTopOfferRv()
         seUpBestProductRv()
+
+
     }
 
+    open fun offerPagingRequest(){
+
+    }
+
+    open fun bestProductPagingRequest(){
+
+    }
     fun hideBestProductLoangding()
     {
         binding.bestProductsProgressBar.visibility = View.GONE

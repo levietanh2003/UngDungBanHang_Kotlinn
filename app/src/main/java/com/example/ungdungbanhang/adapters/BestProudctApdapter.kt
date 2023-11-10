@@ -63,9 +63,4 @@ class BestProudctApdapter: RecyclerView.Adapter<BestProudctApdapter.BestProductV
         return differ.currentList.size
     }
 
-    // doi tien te
-    /*fun formatTienTeVietNam(amount: Double): String {
-        val format = NumberFormat.getCurrencyInstance(Locale("vi", "VN"))
-        return format.format(amount)
-    }*/
 }
