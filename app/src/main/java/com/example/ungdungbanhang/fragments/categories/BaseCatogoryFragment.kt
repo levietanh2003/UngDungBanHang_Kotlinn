@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.adapters.BestProudctApdapter
 import com.example.ungdungbanhang.databinding.FragmentBaseCategoryBinding
@@ -31,16 +33,39 @@ open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
         setUpTopOfferRv()
         seUpBestProductRv()
 
+        binding.rvOfferProducts.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if(!recyclerView.canScrollVertically(1) && dx != 0){
+                    onOfferPagingRequest()
+                }
+            }
+        })
+
+        binding.nestedScrollBaseCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener{ v, _, scrollY, _, _ ->
+            if (v.getChildAt(0).bottom <= v.height + scrollY){
+                onBestProductsPagingRequest()
+            }
+        })
+    }
+
+    open fun onOfferPagingRequest(){
 
     }
 
-    open fun offerPagingRequest(){
+    open fun onBestProductsPagingRequest(){
 
     }
 
-    open fun bestProductPagingRequest(){
-
+    fun hideOfferLoading(){
+        binding.offerProductsProgressBar.visibility = View.GONE
     }
+
+    fun showOfferLoading(){
+        binding.offerProductsProgressBar.visibility = View.GONE
+    }
+
     fun hideBestProductLoangding()
     {
         binding.bestProductsProgressBar.visibility = View.GONE
