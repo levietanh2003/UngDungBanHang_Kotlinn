@@ -14,7 +14,8 @@ class SizesAdapter:RecyclerView.Adapter<SizesAdapter.SizesViewHolder>() {
     private var selectedPosition = -1
     inner class SizesViewHolder(private val binding: SizeTvItemBinding): ViewHolder(binding.root){
         fun bind(size: String, position: Int){
-
+            // fill size
+            binding.tvSize.text = size
             // size da chong
             if(position == selectedPosition){
                 binding.apply {

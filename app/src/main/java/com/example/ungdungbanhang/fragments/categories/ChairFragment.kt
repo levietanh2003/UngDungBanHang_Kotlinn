@@ -10,9 +10,11 @@ import com.example.ungdungbanhang.viewmodel.CategoyViewModel
 import com.example.ungdungbanhang.viewmodel.factory.BaseCategoryViewModelsFactoryFactory
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChairFragment: BaseCatogoryFragment() {
 
     @Inject

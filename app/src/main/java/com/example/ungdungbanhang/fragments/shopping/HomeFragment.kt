@@ -47,11 +47,11 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                 // dinh dang trang
                 0 -> tab.text = "Main"
                 1 -> tab.text = "Áo"
-                2 -> tab.text = "Quần"
-                3 -> tab.text = "Quần dài"
-                4 -> tab.text = "Ghế"
-                5 -> tab.text = "Tủ"
-                6 -> tab.text = "Bàn"
+                2 -> tab.text = "Giày"
+                3 -> tab.text = "Ghế"
+                4 -> tab.text = "Tủ"
+                5 -> tab.text = "Bàn"
+                6 -> tab.text = "Quần"
             }
         }.attach()
     }
