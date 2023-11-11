@@ -49,5 +49,12 @@ class SpecialProductsApdater: RecyclerView.Adapter<SpecialProductsApdater.Specia
     override fun onBindViewHolder(holder: SpecialProductsViewHoslder, position: Int) {
         val product = differ.currentList[position]
         holder.bind(product)
+
+        // khi click vao san pham se vao chi tiet san pham
+        holder.itemView.setOnClickListener {
+            onclick?.invoke(product)
+        }
     }
+
+    var onclick:((Product) -> Unit)? = null
 }

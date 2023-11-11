@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ungdungbanhang.adapters.ColorsAdapter
 import com.example.ungdungbanhang.adapters.SizesAdapter
 import com.example.ungdungbanhang.adapters.ViewPager2Images
 import com.example.ungdungbanhang.databinding.FragmentProductDetailsBinding
+import com.example.ungdungbanhang.helper.formatPriceVN
 
 class ProductDetailsFragment: Fragment() {
     private val args by navArgs<ProductDetailsFragmentArgs>()
@@ -29,5 +31,42 @@ class ProductDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val product = args.product
+
+        setUpSizesRv()
+        seUpColorsRv()
+        sepUpViewPager()
+
+        // do du lieu thong tin san pham
+        binding.apply {
+            tvProductName.text = product.name
+            tvProductPrice.text = formatPriceVN(product.price.toDouble())
+            tvProductDescription.text = product.description
+        }
+        viewPagerAdapter.differ.submitList(product.images)
+        product.colors?.let {colorAdapter.differ.submitList(it)}
+        product.sizes?.let {sizeApdater.differ.submitList(it)}
+    }
+
+    private fun sepUpViewPager() {
+        binding.apply {
+            viewPagerProductImages.adapter = viewPagerAdapter
+        }
+    }
+
+    private fun seUpColorsRv() {
+        binding.rvColors.apply {
+            adapter = colorAdapter
+            layoutManager =
+                LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        }
+    }
+
+    private fun setUpSizesRv() {
+        binding.rvSizes.apply {
+            adapter = sizeApdater
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        }
     }
 }

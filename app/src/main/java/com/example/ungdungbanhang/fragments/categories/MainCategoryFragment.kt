@@ -11,6 +11,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ungdungbanhang.R
@@ -58,6 +59,23 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
         setUpBestDealsRv()
         setUpBestProductsRv()
 
+        // thiet lap dieu huong cho special
+        specialProductsApdater.onclick = {
+            val b = Bundle().apply { putParcelable("product",it)}
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
+
+        // thiet lap dieu huong cho bestDeals
+        bestDealsApdater.onclick = {
+            val b = Bundle().apply { putParcelable("product",it)}
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
+
+        // thiet lap dieu huong cho bestProduct
+        bestProudctApdapter.onclick = {
+            val b = Bundle().apply { putParcelable("product",it)}
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
         lifecycleScope.launchWhenStarted {
             viewModel.specialProducts.collectLatest {
                 when (it) {
