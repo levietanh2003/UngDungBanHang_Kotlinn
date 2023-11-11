@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ungdungbanhang.adapters.ColorsAdapter
@@ -37,6 +38,12 @@ class ProductDetailsFragment: Fragment() {
         setUpSizesRv()
         seUpColorsRv()
         sepUpViewPager()
+
+        // su kien close
+        binding.imageClose.setOnClickListener {
+            requireActivity().onBackPressed()
+            //findNavController().navigateUp()
+        }
 
         // do du lieu thong tin san pham
         binding.apply {

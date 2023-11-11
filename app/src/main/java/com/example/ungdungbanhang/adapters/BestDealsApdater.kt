@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.ungdungbanhang.data.Product
 import com.example.ungdungbanhang.databinding.BestDealsRvItemBinding
 import com.example.ungdungbanhang.helper.formatPriceVN
+import com.example.ungdungbanhang.helper.getProductPrice
 import java.text.NumberFormat
 import java.util.Currency
 
@@ -22,13 +23,10 @@ class BestDealsApdater: RecyclerView.Adapter<BestDealsApdater.BestDealsViewHolde
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imgBestDeal)
                 product.offerPercentage?.let {
-                    val remainingPricePercentage = 1f  - it
-                    val priceAffterOffer = remainingPricePercentage * product.price
-                    tvNewPrice.text = formatPriceVN(priceAffterOffer.toDouble())
-                    tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    val remainingPricePercentage = 1f - it
+                    val priceAfterOffer = remainingPricePercentage * product.price
+                    tvNewPrice.text = formatPriceVN(priceAfterOffer.toDouble())
                 }
-                if(product.offerPercentage == null)
-                    tvNewPrice.visibility = View.VISIBLE
                 tvOldPrice.text = formatPriceVN(product.price.toDouble())
                 tvDealProductName.text = product.name
             }

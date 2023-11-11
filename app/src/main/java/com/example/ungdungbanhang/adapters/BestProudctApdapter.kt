@@ -24,9 +24,10 @@ class BestProudctApdapter: RecyclerView.Adapter<BestProudctApdapter.BestProductV
                 tvNewPrice.text  = formatPriceVN(priceAfterOffer.toDouble())
                 tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
-                if (product.offerPercentage == null)
+                if (product.offerPercentage == null){
                     tvNewPrice.visibility = View.INVISIBLE
-
+                    tvPrice.paintFlags = tvPrice.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                }
                 Glide.with(itemView).load(product.images[0]).into(imgProduct)
                 tvPrice.text = formatPriceVN(product.price.toDouble())
                 tvName.text = product.name

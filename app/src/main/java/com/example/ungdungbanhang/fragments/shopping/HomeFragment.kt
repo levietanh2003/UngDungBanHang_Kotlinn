@@ -45,7 +45,7 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         TabLayoutMediator(binding.tabLayout,binding.viewpagerHome) {tab, position ->
             when(position){
                 // dinh dang trang
-                0 -> tab.text = "Main"
+                0 -> tab.text = "Giới thiệu"
                 1 -> tab.text = "Áo"
                 2 -> tab.text = "Giày"
                 3 -> tab.text = "Ghế"

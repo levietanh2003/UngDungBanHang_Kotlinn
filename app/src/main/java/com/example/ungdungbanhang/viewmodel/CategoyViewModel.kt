@@ -35,7 +35,7 @@ class CategoyViewModel constructor(
 
         }
 
-        // truy van
+        // truy van san pham co offerPercentage khac null
         firestore.collection("Product").whereEqualTo("category",category.category)
             .whereNotEqualTo("offerPercentage",null).get()
             .addOnSuccessListener {
@@ -57,9 +57,8 @@ class CategoyViewModel constructor(
             _bestProduct.emit(Resource.Loading())
         }
 
-        // truy van
-        firestore.collection("Product").whereEqualTo("category",category.category)
-            .whereNotEqualTo("offerPercentage",null).get()
+        // truy van san pham tot
+        firestore.collection("Product").whereEqualTo("category",category.category).get()
             .addOnSuccessListener {
                 val products = it.toObjects(Product::class.java)
                 viewModelScope.launch{
