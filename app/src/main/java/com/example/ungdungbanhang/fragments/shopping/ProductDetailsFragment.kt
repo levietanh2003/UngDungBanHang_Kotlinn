@@ -13,6 +13,7 @@ import com.example.ungdungbanhang.adapters.SizesAdapter
 import com.example.ungdungbanhang.adapters.ViewPager2Images
 import com.example.ungdungbanhang.databinding.FragmentProductDetailsBinding
 import com.example.ungdungbanhang.helper.formatPriceVN
+import com.example.ungdungbanhang.util.hideBottomNavigation
 
 class ProductDetailsFragment: Fragment() {
     private val args by navArgs<ProductDetailsFragmentArgs>()
@@ -26,6 +27,8 @@ class ProductDetailsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        // an bottom navigation
+        hideBottomNavigation()
         binding = FragmentProductDetailsBinding.inflate(inflater)
         return binding.root
     }

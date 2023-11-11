@@ -15,12 +15,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ungdungbanhang.R
+import com.example.ungdungbanhang.activities.ShoppingActivity
 import com.example.ungdungbanhang.adapters.BestDealsApdater
 import com.example.ungdungbanhang.adapters.BestProudctApdapter
 import com.example.ungdungbanhang.adapters.SpecialProductsApdater
 import com.example.ungdungbanhang.databinding.FragmentMainCategoryBinding
 import com.example.ungdungbanhang.util.Resource
+import com.example.ungdungbanhang.util.showBottomNavigation
 import com.example.ungdungbanhang.viewmodel.MainCategoryViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
@@ -167,5 +170,11 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
             adapter = specialProductsApdater
         }
+    }
+
+    // hien bottom navigation
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigation()
     }
 }
