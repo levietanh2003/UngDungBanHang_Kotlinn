@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.adapters.BestProudctApdapter
 import com.example.ungdungbanhang.databinding.FragmentBaseCategoryBinding
+import com.example.ungdungbanhang.util.showBottomNavigation
 
 open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
     private lateinit var binding: FragmentBaseCategoryBinding
@@ -32,6 +34,19 @@ open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
 
         setUpTopOfferRv()
         seUpBestProductRv()
+
+        // dieu huong offrAdapter qua chi tiet san pham khi click
+        offerApdater.onclick = {
+            val b  =Bundle().apply {
+                putParcelable("product",it)}
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
+
+        // dieu huong bestProudctApdapter qua chi tiet san pham khi click
+        bestProudctApdapter.onclick = {
+            val b = Bundle().apply { putParcelable("product",it)}
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
+        }
 
         binding.rvOfferProducts.addOnScrollListener(object : RecyclerView.OnScrollListener(){
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -90,4 +105,9 @@ open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
         }
     }
 
+    // hien bottom navigation
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigation()
+    }
 }

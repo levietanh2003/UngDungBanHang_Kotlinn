@@ -22,6 +22,8 @@ class CategoyViewModel constructor(
     private val _bestProduct = MutableStateFlow<Resource<List<Product>>>(Resource.Unspecified())
     val bestProduct = _bestProduct.asStateFlow()
 
+    // phan trang san pham
+    private val pagingInfo = PagingInfo()
     init {
         fetchOfferProduct()
         fetchBestProduct()
@@ -36,14 +38,17 @@ class CategoyViewModel constructor(
         }
 
         // truy van san pham co offerPercentage khac null
-        firestore.collection("Product").whereEqualTo("category",category.category)
+        firestore.collection("Product").whereEqualTo("category",category.category).limit(pagingInfo.page * 5)
             .whereNotEqualTo("offerPercentage",null).get()
             .addOnSuccessListener {
                 val products = it.toObjects(Product::class.java)
+                val offerProductList = it.toObjects(Product::class.java)
+                pagingInfo.isPagingEnd = offerProductList == pagingInfo.oldBestProducts
+                pagingInfo.oldBestProducts = offerProductList
                 viewModelScope.launch {
                     _offerProduct.emit(Resource.Success(products))
                 }
-
+                pagingInfo.page++
             }.addOnFailureListener {
                 viewModelScope.launch {
                     _offerProduct.emit(Resource.Error(it.message.toString()))
@@ -58,12 +63,16 @@ class CategoyViewModel constructor(
         }
 
         // truy van san pham tot
-        firestore.collection("Product").whereEqualTo("category",category.category).get()
+        firestore.collection("Product").whereEqualTo("category",category.category).limit(pagingInfo.page * 10).get()
             .addOnSuccessListener {
                 val products = it.toObjects(Product::class.java)
+                val bestProudList = it.toObjects(Product::class.java)
+                pagingInfo.isPagingEnd = bestProudList == pagingInfo.oldBestProducts
+                pagingInfo.oldBestProducts = bestProudList
                 viewModelScope.launch{
                     _bestProduct.emit(Resource.Success(products))
                 }
+                pagingInfo.page++
             }.addOnFailureListener {
                 viewModelScope.launch {
                     _offerProduct.emit(Resource.Error(it.message.toString()))

@@ -53,6 +53,14 @@ class ProductDetailsFragment: Fragment() {
             tvProductName.text = product.name
             tvProductPrice.text = formatPriceVN(product.price.toDouble())
             tvProductDescription.text = product.description
+
+            // neu san pham khong co mau hoac size an di
+            if(product.colors.isNullOrEmpty()){
+                tvProductColors.visibility = View.INVISIBLE
+            }
+            if(product.sizes.isNullOrEmpty()){
+                tvProductSize.visibility = View.INVISIBLE
+            }
         }
         viewPagerAdapter.differ.submitList(product.images)
         product.colors?.let {colorAdapter.differ.submitList(it)}

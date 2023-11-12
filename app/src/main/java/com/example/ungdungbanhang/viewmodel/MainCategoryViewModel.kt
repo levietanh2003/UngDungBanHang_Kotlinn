@@ -103,6 +103,7 @@ class MainCategoryViewModel@Inject constructor(
     }
 }
 
+// phan trang san pham
 internal data class PagingInfo(
     var page: Long = 1,
     var oldBestProducts: List<Product> = emptyList(),
