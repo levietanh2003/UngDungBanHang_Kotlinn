@@ -53,6 +53,7 @@ class ProductDetailsFragment: Fragment() {
         binding.apply {
             val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
             tvProductName.text = product.name
+            // kiem tra xem offPercentage co ton tai khong neu co thi gan gia sau khi thay doi
             if(product.offerPercentage == null)
                 tvProductPrice.text = formatPriceVN(product.price.toDouble())
             tvProductPrice.text = formatPriceVN(priceAfterOffer.toDouble())

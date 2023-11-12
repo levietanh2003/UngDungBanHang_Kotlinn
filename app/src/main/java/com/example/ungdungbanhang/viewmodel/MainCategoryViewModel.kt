@@ -41,10 +41,8 @@ class MainCategoryViewModel@Inject constructor(
                 _specialProducts.emit(Resource.Loading())
             }
             firestore
-                .collection("Product").whereEqualTo("category","Special Products").limit(pagingInfo.page * 5).get().addOnSuccessListener { result ->
+                .collection("Product").whereEqualTo("category","Special Products").get().addOnSuccessListener { result ->
                     val specialProductsList = result.toObjects(Product::class.java)
-                    pagingInfo.isPagingEnd = specialProductsList == pagingInfo.oldBestProducts
-                    pagingInfo.oldBestProducts = specialProductsList
                     viewModelScope.launch {
                         _specialProducts.emit(Resource.Success(specialProductsList))
                     }
@@ -63,14 +61,11 @@ class MainCategoryViewModel@Inject constructor(
                 _bestDealsProducts.emit(Resource.Loading())
             }
 
-            firestore.collection("Product").whereEqualTo("category","Best Deals").limit(pagingInfo.page * 5).get().addOnSuccessListener {result ->
+            firestore.collection("Product").whereEqualTo("category","Best Deals").get().addOnSuccessListener {result ->
                 val bestDealsProduct = result.toObjects(Product::class.java)
-                pagingInfo.isPagingEnd = bestDealsProduct == pagingInfo.oldBestProducts
-                pagingInfo.oldBestProducts = bestDealsProduct
                 viewModelScope.launch {
                     _bestDealsProducts.emit(Resource.Success(bestDealsProduct))
                 }
-                pagingInfo.page++
             }.addOnFailureListener {
                 viewModelScope.launch {
                     _specialProducts.emit(Resource.Error(it.message.toString()))

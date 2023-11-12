@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.activities.ShoppingActivity
 import com.example.ungdungbanhang.adapters.BestDealsApdater
@@ -52,7 +53,6 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
 
     private fun showLoading() {
         binding.mainCategoryProgressbar.visibility = View.VISIBLE
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,6 +80,7 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
             findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
         }
 
+        // phan trang
         lifecycleScope.launchWhenStarted {
             viewModel.specialProducts.collectLatest {
                 when (it) {
@@ -105,15 +106,18 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
                 when(it) {
                     is Resource.Loading -> {
                         showLoading()
+                        binding.bestProductProgressbar.visibility = View.VISIBLE
                     }
                     is  Resource.Success -> {
                         bestDealsApdater.differ.submitList(it.data)
                         hideLoading()
+                        binding.bestProductProgressbar.visibility = View.GONE
                     }
                     is  Resource.Error -> {
                         hideLoading()
                         Log.e(TAG, it.message.toString())
                         Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                        binding.bestProductProgressbar.visibility = View.GONE
                     }
                     else -> Unit
                 }
@@ -140,7 +144,7 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
                 }
             }
         }
-
+        // phan trang trang best product
         binding.nestedScrollMainCategory.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener{ v,_,scrollY,_,_ ->
             // kiem tra cuon cau Nestl co bang chieu cao cong voi so luong cuong y hay khong
             if(v.getChildAt(0).bottom <= v.height + scrollY){

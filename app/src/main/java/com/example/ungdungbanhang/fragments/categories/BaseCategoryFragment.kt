@@ -55,7 +55,7 @@ open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if(!recyclerView.canScrollVertically(1) && dx != 0){
+                if(dy != 0 && recyclerView.canScrollHorizontally(1)){
                     onOfferPagingRequest()
                 }
             }
@@ -70,12 +70,12 @@ open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
 
     // phant trang offer
     open fun onOfferPagingRequest(){
-        viewModel.fetchOfferProduct()
+        //viewModel.fetchOfferProduct()
     }
 
     // phant trang bestProduct
     open fun onBestProductsPagingRequest(){
-        viewModel.fetchBestProduct()
+        //viewModel.fetchBestProduct()
     }
 
     fun hideOfferLoading(){
