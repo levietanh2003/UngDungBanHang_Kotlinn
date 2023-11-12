@@ -79,6 +79,7 @@ class MainCategoryFragment:Fragment(R.layout.fragment_main_category) {
             val b = Bundle().apply { putParcelable("product",it)}
             findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment,b)
         }
+
         lifecycleScope.launchWhenStarted {
             viewModel.specialProducts.collectLatest {
                 when (it) {

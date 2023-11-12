@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +15,14 @@ import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.adapters.BestProudctApdapter
 import com.example.ungdungbanhang.databinding.FragmentBaseCategoryBinding
 import com.example.ungdungbanhang.util.showBottomNavigation
+import com.example.ungdungbanhang.viewmodel.CategoyViewModel
+import com.example.ungdungbanhang.viewmodel.MainCategoryViewModel
 
-open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
+open class BaseCategoryFragment: Fragment(R.layout.fragment_base_category) {
     private lateinit var binding: FragmentBaseCategoryBinding
     protected val offerApdater: BestProudctApdapter by lazy { BestProudctApdapter() }
     protected val bestProudctApdapter: BestProudctApdapter by lazy { BestProudctApdapter() }
-
+    private val viewModel by viewModels<CategoyViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,12 +68,14 @@ open class BaseCatogoryFragment: Fragment(R.layout.fragment_base_category) {
         })
     }
 
+    // phant trang offer
     open fun onOfferPagingRequest(){
-
+        viewModel.fetchOfferProduct()
     }
 
+    // phant trang bestProduct
     open fun onBestProductsPagingRequest(){
-
+        viewModel.fetchBestProduct()
     }
 
     fun hideOfferLoading(){

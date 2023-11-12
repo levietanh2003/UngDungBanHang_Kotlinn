@@ -32,51 +32,55 @@ class CategoyViewModel constructor(
     // phieu san pham co Offer tot
     fun fetchOfferProduct()
     {
+        if(!pagingInfo.isPagingEnd){
+            viewModelScope.launch {
+                _bestProduct.emit(Resource.Loading())
+            }
+            // truy van san pham co offerPercentage khac null
+            firestore.collection("Product").whereEqualTo("category",category.category).limit(pagingInfo.page * 5)
+                .whereNotEqualTo("offerPercentage",null).get()
+                .addOnSuccessListener {
+                    val products = it.toObjects(Product::class.java)
+                    val offerProductList = it.toObjects(Product::class.java)
+                    pagingInfo.isPagingEnd = offerProductList == pagingInfo.oldBestProducts
+                    pagingInfo.oldBestProducts = offerProductList
+                    viewModelScope.launch {
+                        _offerProduct.emit(Resource.Success(products))
+                    }
+                    pagingInfo.page++
+                }.addOnFailureListener {
+                    viewModelScope.launch {
+                        _offerProduct.emit(Resource.Error(it.message.toString()))
+                    }
+                }
+        }
         viewModelScope.launch {
             _offerProduct.emit(Resource.Loading())
-
         }
-
-        // truy van san pham co offerPercentage khac null
-        firestore.collection("Product").whereEqualTo("category",category.category).limit(pagingInfo.page * 5)
-            .whereNotEqualTo("offerPercentage",null).get()
-            .addOnSuccessListener {
-                val products = it.toObjects(Product::class.java)
-                val offerProductList = it.toObjects(Product::class.java)
-                pagingInfo.isPagingEnd = offerProductList == pagingInfo.oldBestProducts
-                pagingInfo.oldBestProducts = offerProductList
-                viewModelScope.launch {
-                    _offerProduct.emit(Resource.Success(products))
-                }
-                pagingInfo.page++
-            }.addOnFailureListener {
-                viewModelScope.launch {
-                    _offerProduct.emit(Resource.Error(it.message.toString()))
-                }
-            }
     }
 
     // fill san pham tot theo danh muc
     fun fetchBestProduct(){
-        viewModelScope.launch {
-            _bestProduct.emit(Resource.Loading())
-        }
-
-        // truy van san pham tot
-        firestore.collection("Product").whereEqualTo("category",category.category).limit(pagingInfo.page * 10).get()
-            .addOnSuccessListener {
-                val products = it.toObjects(Product::class.java)
-                val bestProudList = it.toObjects(Product::class.java)
-                pagingInfo.isPagingEnd = bestProudList == pagingInfo.oldBestProducts
-                pagingInfo.oldBestProducts = bestProudList
-                viewModelScope.launch{
-                    _bestProduct.emit(Resource.Success(products))
-                }
-                pagingInfo.page++
-            }.addOnFailureListener {
-                viewModelScope.launch {
-                    _offerProduct.emit(Resource.Error(it.message.toString()))
-                }
+        if(!pagingInfo.isPagingEnd){
+            viewModelScope.launch {
+                _bestProduct.emit(Resource.Loading())
             }
+            // truy van san pham tot
+            firestore.collection("Product").whereEqualTo("category",category.category).limit(pagingInfo.page * 10).get()
+                .addOnSuccessListener {
+                    val products = it.toObjects(Product::class.java)
+                    val bestProudList = it.toObjects(Product::class.java)
+                    pagingInfo.isPagingEnd = bestProudList == pagingInfo.oldBestProducts
+                    pagingInfo.oldBestProducts = bestProudList
+                    viewModelScope.launch{
+                        _bestProduct.emit(Resource.Success(products))
+                    }
+                    pagingInfo.page++
+                }.addOnFailureListener {
+                    viewModelScope.launch {
+                        _offerProduct.emit(Resource.Error(it.message.toString()))
+                    }
+                }
+        }
     }
 }

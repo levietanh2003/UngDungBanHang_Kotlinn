@@ -2,7 +2,6 @@ package com.example.ungdungbanhang.fragments.categories
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.ungdungbanhang.data.Category
@@ -16,7 +15,7 @@ import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ShirtFragment: BaseCatogoryFragment() {
+class ShirtFragment: BaseCategoryFragment() {
 
     @Inject
     lateinit var firestore: FirebaseFirestore

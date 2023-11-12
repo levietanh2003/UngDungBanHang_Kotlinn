@@ -13,6 +13,7 @@ import com.example.ungdungbanhang.adapters.SizesAdapter
 import com.example.ungdungbanhang.adapters.ViewPager2Images
 import com.example.ungdungbanhang.databinding.FragmentProductDetailsBinding
 import com.example.ungdungbanhang.helper.formatPriceVN
+import com.example.ungdungbanhang.helper.getProductPrice
 import com.example.ungdungbanhang.util.hideBottomNavigation
 
 class ProductDetailsFragment: Fragment() {
@@ -50,8 +51,11 @@ class ProductDetailsFragment: Fragment() {
 
         // do du lieu thong tin san pham
         binding.apply {
+            val priceAfterOffer = product.offerPercentage.getProductPrice(product.price)
             tvProductName.text = product.name
-            tvProductPrice.text = formatPriceVN(product.price.toDouble())
+            if(product.offerPercentage == null)
+                tvProductPrice.text = formatPriceVN(product.price.toDouble())
+            tvProductPrice.text = formatPriceVN(priceAfterOffer.toDouble())
             tvProductDescription.text = product.description
 
             // neu san pham khong co mau hoac size an di
