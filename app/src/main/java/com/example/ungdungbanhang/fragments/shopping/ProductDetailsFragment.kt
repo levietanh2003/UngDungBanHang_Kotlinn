@@ -4,24 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.adapters.ColorsAdapter
 import com.example.ungdungbanhang.adapters.SizesAdapter
 import com.example.ungdungbanhang.adapters.ViewPager2Images
+import com.example.ungdungbanhang.data.CartProduct
 import com.example.ungdungbanhang.databinding.FragmentProductDetailsBinding
 import com.example.ungdungbanhang.helper.formatPriceVN
 import com.example.ungdungbanhang.helper.getProductPrice
+import com.example.ungdungbanhang.util.Resource
 import com.example.ungdungbanhang.util.hideBottomNavigation
-
+import com.example.ungdungbanhang.viewmodel.DetailsViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+@AndroidEntryPoint
 class ProductDetailsFragment: Fragment() {
     private val args by navArgs<ProductDetailsFragmentArgs>()
     private lateinit var binding: FragmentProductDetailsBinding
     private val viewPagerAdapter by lazy { ViewPager2Images() }
     private val sizeApdater by lazy { SizesAdapter() }
     private val colorAdapter by lazy { ColorsAdapter() }
+    private var selectedColor: Int? = null
+    private var selectedSize: String? = null
+    private val viewModel by viewModels<DetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,6 +59,47 @@ class ProductDetailsFragment: Fragment() {
         binding.imageClose.setOnClickListener {
             requireActivity().onBackPressed()
             //findNavController().navigateUp()
+        }
+
+        // ghi nhan su lua chon mau
+        colorAdapter.onItemClick = {
+            selectedColor = it
+        }
+
+        // ghi nhan su lua chon size
+        sizeApdater.onItemClick = {
+            selectedSize = it
+        }
+
+        binding.buttonAddToCart.setOnClickListener {
+          // kiem tra nguoi duoc co chon mau sac hay kich thuoc khong
+            if(selectedColor != null && selectedSize != null){
+                // khi chon roi thuc hien them san pham vao gio hang
+                viewModel.addUpdateProductInCar(CartProduct(product,1,selectedColor,selectedSize))
+            }else{
+                // khi chua chon k thuc hien them san pham vao gio hang
+                Toast.makeText(context,"Vui lòng chọn màu sắc và kích thước",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        // luong them san pham vao gio hang
+        lifecycleScope.launchWhenStarted {
+            viewModel.addToCart.collectLatest {
+                when(it){
+                    is Resource.Loading ->{
+                        binding.buttonAddToCart.startAnimation()
+                    }
+                    is Resource.Success -> {
+                        binding.buttonAddToCart.startAnimation()
+                        Toast.makeText(context,"Thêm sản phẩm vào giỏ hàng thành công.",Toast.LENGTH_SHORT).show()
+                    }
+                    is Resource.Error -> {
+                        binding.buttonAddToCart.startAnimation()
+                        Toast.makeText(context,"Thêm sản phẩm vào giỏ hàng thất bại.",Toast.LENGTH_SHORT).show()
+                    }
+                    else -> Unit
+                }
+            }
         }
 
         // do du lieu thong tin san pham
