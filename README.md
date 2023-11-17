@@ -23,6 +23,7 @@
 ## Screenshot
 
 ![Giao diện giới thiệu](https://user-images.githubusercontent.com/105142161/283671716-47415597-b9ff-4ded-9801-e9359ea51af3.png)
+<img src="https://user-images.githubusercontent.com/105142161/283671716-47415597-b9ff-4ded-9801-e9359ea51af3.png" alt="..." width="250" />
 <img width="462" alt="dangKi_DangNhap" src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/47415597-b9ff-4ded-9801-e9359ea51af3">
 
 ## Công nghệ sử dụng
