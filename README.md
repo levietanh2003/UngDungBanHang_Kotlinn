@@ -21,11 +21,13 @@
 4. Chạy ứng dụng
 
 ## Giao diện
+# Giới thiệu
 <img src="https://user-images.githubusercontent.com/105142161/283671716-47415597-b9ff-4ded-9801-e9359ea51af3.png" alt="..." width="250" />
-# Giao diện
-
+# Đăng kí
 <img src="https://user-images.githubusercontent.com/105142161/283674623-29d1c55a-3773-47f0-a1c4-6c49e3853c9b.png" alt="..." width="250" />
+# Đăng nhập
 <img src="https://user-images.githubusercontent.com/105142161/283674632-b608437f-5ea4-48cf-b5b1-fea6c235c495.png" alt="..." width="250" />
+# Trang Home
 <img src="https://user-images.githubusercontent.com/105142161/283671136-a1d46c59-84f2-4732-94d6-746e1f477ac5.png" alt="..." width="250" />
 
 ## Công nghệ sử dụng
