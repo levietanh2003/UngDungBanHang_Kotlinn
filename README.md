@@ -28,6 +28,9 @@
 <img src="https://user-images.githubusercontent.com/105142161/283674632-b608437f-5ea4-48cf-b5b1-fea6c235c495.png" alt="..." width="250" />
 # Trang Home
 <img src="https://user-images.githubusercontent.com/105142161/283671136-a1d46c59-84f2-4732-94d6-746e1f477ac5.png" alt="..." width="250" />
+# Trang Giỏ hàng
+<img src="https://user-images.githubusercontent.com/105142161/283728661-bd811804-57be-4096-8c61-c3d3988524b4.png" alt="..." width="250" />
+
 
 ## Công nghệ sử dụng
 
