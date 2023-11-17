@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.databinding.ActivityShopingBinding
 import com.example.ungdungbanhang.util.Resource
+import com.example.ungdungbanhang.viewmodel.CartViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -21,7 +22,7 @@ class ShoppingActivity : AppCompatActivity() {
         ActivityShopingBinding.inflate(layoutInflater)
     }
 
-    //val viewModel by viewModels<CartViewModel>()
+    val viewModel by viewModels<CartViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +31,8 @@ class ShoppingActivity : AppCompatActivity() {
         val navController = findNavController(R.id.shoppingHostFragment)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        /*lifecycleScope.launchWhenStarted {
-            vie.cartProducts.collectLatest {
+        lifecycleScope.launchWhenStarted {
+            viewModel.cartProducts.collectLatest {
                 when (it) {
                     is Resource.Success -> {
                         val count = it.data?.size ?: 0
@@ -44,6 +45,6 @@ class ShoppingActivity : AppCompatActivity() {
                     else -> Unit
                 }
             }
-        }*/
+        }
     }
 }
