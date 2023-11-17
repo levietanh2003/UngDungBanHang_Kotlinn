@@ -22,8 +22,11 @@
 
 ## Screenshot
 
-![Giao diện ứng dụng](<img width="462" alt="gioiThieu" src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/a1d46c59-84f2-4732-94d6-746e1f477ac5">
-<img width="462" alt="dangKi_DangNhap" src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/47415597-b9ff-4ded-9801-e9359ea51af3">)
+![Giao diện ứng dụng]
+- Giao diện giới thiệu
+  <img width="462" alt="gioiThieu" src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/a1d46c59-84f2-4732-94d6-746e1f477ac5">
+- Giao diện đăng kí và đăng nhập
+<img width="462" alt="dangKi_DangNhap" src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/47415597-b9ff-4ded-9801-e9359ea51af3">
 
 ## Công nghệ sử dụng
 
