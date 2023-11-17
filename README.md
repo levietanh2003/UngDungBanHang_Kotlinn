@@ -21,7 +21,6 @@
 4. Chạy ứng dụng
 
 ## Giao diện
-# Giới thiệu
 <img src="https://user-images.githubusercontent.com/105142161/283671716-47415597-b9ff-4ded-9801-e9359ea51af3.png" alt="..." width="250" />
 # Đăng kí
 <img src="https://user-images.githubusercontent.com/105142161/283674623-29d1c55a-3773-47f0-a1c4-6c49e3853c9b.png" alt="..." width="250" />
