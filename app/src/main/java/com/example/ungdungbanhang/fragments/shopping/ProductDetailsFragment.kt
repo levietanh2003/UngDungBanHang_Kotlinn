@@ -90,7 +90,8 @@ class ProductDetailsFragment: Fragment() {
                         binding.buttonAddToCart.startAnimation()
                     }
                     is Resource.Success -> {
-                        binding.buttonAddToCart.startAnimation()
+                        binding.buttonAddToCart.revertAnimation()
+                        binding.buttonAddToCart.setBackgroundColor(resources.getColor(R.color.black))
                         Toast.makeText(context,"Thêm sản phẩm vào giỏ hàng thành công.",Toast.LENGTH_SHORT).show()
                     }
                     is Resource.Error -> {

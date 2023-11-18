@@ -40,37 +40,46 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         super.onViewCreated(view, savedInstanceState)
 
         setupCartRv()
+        lifecycleScope.launchWhenStarted {
+            viewModel.productsPrice.collectLatest { price ->
+                price?.let {
+                    binding.tvTotalPrice.text = formatPriceVN(price as Double)
+                }
+            }
+        }
+
+        // su kien dong gio hang
+        binding.imageCloseCart.setOnClickListener {
+            requireActivity().onBackPressed()
+            //findNavController().navigateUp()
+        }
+
+        // click vao san pham trong gio hang chuyen huong vao chi tiet san pham do
         cartAdapter.onProductClick = {
             val b = Bundle().apply {
                 putParcelable("product", it.product)
             }
             findNavController().navigate(R.id.action_cartFragment_to_productDetailsFragment, b)
         }
-
+        // click vao nut them so luong san pham
         cartAdapter.onPlusClick = {
             viewModel.changeQuantity(it, FireBaseCommon.QuantityChanging.INCREASE)
         }
-
+        // click vao nut giam so luong san pham
         cartAdapter.onMinusClick = {
             viewModel.changeQuantity(it, FireBaseCommon.QuantityChanging.DECREASE)
         }
 
-        /*binding.buttonCheckout.setOnClickListener {
-            val action = CartFragmentDirections.actionCartFragmentToBillingFragment2(totalPrice,cartAdapter.differ.currentList.toTypedArray(),true)
-            findNavController().navigate(action)
-        }*/
-
-
-
-        /*lifecycleScope.launchWhenStarted {
+        // xoa san pham khoi gio hang
+        lifecycleScope.launchWhenStarted {
             viewModel.deleteDialog.collectLatest {
                 val alertDialog = AlertDialog.Builder(requireContext()).apply {
-                    setTitle("Delete item from cart")
-                    setMessage("Do you want to delete this item from your cart?")
-                    setNegativeButton("Cancel") { dialog, _ ->
+                    setTitle("Xóa sản phẩm")
+                    setMessage("Bạn có chắc chắn muốn xóa sản phẩm này?")
+                    setNegativeButton("Hủy") {dialog,_->
                         dialog.dismiss()
                     }
-                    setPositiveButton("Yes") { dialog, _ ->
+                    setPositiveButton("Xóa") {dialog,_->
                         viewModel.deleteCartProduct(it)
                         dialog.dismiss()
                     }
@@ -78,7 +87,7 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
                 alertDialog.create()
                 alertDialog.show()
             }
-        }*/
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.cartProducts.collectLatest {

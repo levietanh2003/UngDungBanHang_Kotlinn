@@ -30,7 +30,8 @@ class DetailsViewModel @Inject constructor(
             _addToCart.emit(Resource.Loading())
         }
         firestore.collection("user")
-            .document(auth.uid!!).collection("cart").whereEqualTo("product.id",cartProduct.product.id).get()
+            .document(auth.uid!!).collection("cart")
+            .whereEqualTo("product.id",cartProduct.product.id).get()
             .addOnSuccessListener {
                 // kiem tra doucument co trong khong
                 if(it.isEmpty()){ // them san pham moi
@@ -44,7 +45,6 @@ class DetailsViewModel @Inject constructor(
                         addNewProduct(cartProduct)
                     }
                 }
-
             }.addOnFailureListener {
                 viewModelScope.launch {
                     _addToCart.emit(Resource.Error(it.message.toString()))

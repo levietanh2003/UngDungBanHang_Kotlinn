@@ -60,9 +60,10 @@ class CategoyViewModel constructor(
             viewModelScope.launch {
                 _bestProduct.emit(Resource.Loading())
             }
-            // truy van san pham tot
-            firestore.collection("Products").whereEqualTo("category", category.category)
-                .whereEqualTo("offerPercentage", null).limit(pagingInfo.page * 10).get()
+            // truy van san pham tot khong
+            firestore.collection("Product").whereEqualTo("category", category.category)
+                .whereEqualTo("offerPercentage",null)
+                .get()
                 .addOnSuccessListener {
                     val products = it.toObjects(Product::class.java)
                     val bestProudList = it.toObjects(Product::class.java)

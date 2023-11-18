@@ -6,14 +6,11 @@ import com.example.ungdungbanhang.data.CartProduct
 import com.example.ungdungbanhang.firebase.FireBaseCommon
 import com.example.ungdungbanhang.helper.getProductPrice
 import com.example.ungdungbanhang.util.Resource
-import com.google.common.math.Quantiles
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
@@ -30,6 +27,33 @@ class CartViewModel @Inject constructor(
 
     private var cartProductDocuments = emptyList<DocumentSnapshot>()
 
+    private val _deleteDialog = MutableSharedFlow<CartProduct>()
+    val deleteDialog = _deleteDialog.asSharedFlow()
+
+    val productsPrice = cartProducts.map {
+        when(it){
+         is Resource.Success -> {
+             calculatePrice(it.data!!)
+         }
+            else -> null
+        }
+    }
+
+    // ham xoa san pham trong gio hang
+    fun deleteCartProduct(cartProduct: CartProduct) {
+        val index = cartProducts.value.data?.indexOf(cartProduct)
+        if(index != null && index != -1){
+            val documnetId = cartProductDocuments[index].id
+            firestore.collection("user").document(auth.uid!!).collection("cart").document(documnetId)
+                .delete()
+        }
+    }
+
+    private fun calculatePrice(data: List<CartProduct>): Any {
+        return data.sumByDouble { cartProduct ->
+            (cartProduct.product.offerPercentage.getProductPrice(cartProduct.product.price) * cartProduct.quantity).toDouble()
+        }
+    }
 
     init {
         getCartProduct()
@@ -74,6 +98,12 @@ class CartViewModel @Inject constructor(
                     }
                 }
                 FireBaseCommon.QuantityChanging.DECREASE -> {
+                    // khong cho nguoi dung giam so luong nho hon 1
+                    if(cartProduct.quantity == 1){
+                        // neu nguoi dung tiep tuc click vao giam khi so luong = 1 thi xoa san pham
+                        viewModelScope.launch { _deleteDialog.emit(cartProduct)}
+                        return
+                    }
                     viewModelScope.launch{
                         _cartProducts.emit(Resource.Loading())
                         decreaseQuantity(documnetId)
