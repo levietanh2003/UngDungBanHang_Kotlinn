@@ -59,7 +59,7 @@
             android:background="@drawable/white_background"
             android:fontFamily="@font/poppins_light"
             android:gravity="start|center_vertical"
-            android:hint="Địa chỉ nhà"
+            android:hint="Tên địa chỉ"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:singleLine="true"

@@ -70,6 +70,11 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
             viewModel.changeQuantity(it, FireBaseCommon.QuantityChanging.DECREASE)
         }
 
+        // su kien click vao nut thanh toan
+        binding.buttonCheckout.setOnClickListener {
+            findNavController().navigate(R.id.action_cartFragment_to_billingFragment)
+        }
+
         // xoa san pham khoi gio hang
         lifecycleScope.launchWhenStarted {
             viewModel.deleteDialog.collectLatest {
