@@ -28,13 +28,13 @@ class AddressViewModel @Inject constructor(
 
         // ham them dia chi
         fun addAddress(address: Address){
-            // kiem tra du lieu nguoi dung nhap vap
             val validateInputs = validateInputs(address)
             if(validateInputs){
                 viewModelScope.launch { _addNewAddress.emit(Resource.Loading()) }
                 firestore.collection("user").document(auth.uid!!).collection("address").document()
                     .set(address).addOnSuccessListener {
-                        viewModelScope.launch{ _addNewAddress.emit(Resource.Success(address)) }
+                        viewModelScope.launch{
+                            _addNewAddress.emit(Resource.Success(address)) }
                     }.addOnFailureListener {
                         viewModelScope.launch{ _addNewAddress.emit(Resource.Error(it.message.toString())) }
                     }
@@ -44,12 +44,13 @@ class AddressViewModel @Inject constructor(
             }
         }
 
+    // kiem tra gia tri nguoi dung nhap vao
     private fun validateInputs(address: Address): Boolean {
-        return address.addressTitle.trim().isEmpty() &&
-                address.fullName.trim().isEmpty() &&
-                address.phoneNumber.trim().isEmpty() &&
-                address.state.trim().isEmpty() &&
-                address.street.trim().isNotEmpty() &&
-                address.city.trim().isNotEmpty()
+        return address.addressTitle.trim().isNotEmpty() &&
+                address.city.trim().isNotEmpty() &&
+                address.phoneNumber.trim().isNotEmpty() &&
+                address.state.trim().isNotEmpty() &&
+                address.fullName.trim().isNotEmpty() &&
+                address.street.trim().isNotEmpty()
     }
 }
