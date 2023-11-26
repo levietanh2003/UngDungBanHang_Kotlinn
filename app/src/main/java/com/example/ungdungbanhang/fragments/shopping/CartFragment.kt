@@ -40,9 +40,12 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
         super.onViewCreated(view, savedInstanceState)
 
         setupCartRv()
+
+        var totalPrice = 0.0
         lifecycleScope.launchWhenStarted {
             viewModel.productsPrice.collectLatest { price ->
                 price?.let {
+                    totalPrice = it as Double
                     binding.tvTotalPrice.text = formatPriceVN(price as Double)
                 }
             }
@@ -72,7 +75,8 @@ class CartFragment : Fragment(R.layout.fragment_cart) {
 
         // su kien click vao nut thanh toan
         binding.buttonCheckout.setOnClickListener {
-            findNavController().navigate(R.id.action_cartFragment_to_billingFragment)
+            val action = CartFragmentDirections.actionCartFragmentToBillingFragment(totalPrice.toFloat(),cartAdapter.differ.currentList.toTypedArray())
+            findNavController().navigate(action)
         }
 
         // xoa san pham khoi gio hang

@@ -48,17 +48,22 @@ class AddressAdapter: Adapter<AddressAdapter.AddressViewHolder>() {
         )
     }
 
-    var seletecdAddress = -1
+    var selectedAddress = -1
     override fun onBindViewHolder(holder: AddressViewHolder, position: Int) {
         val address = differ.currentList[position]
-        holder.bind(address, seletecdAddress == position)
+        holder.bind(address, selectedAddress == position)
 
         holder.binding.buttonAddress.setOnClickListener {
-            if(seletecdAddress >= 0)
-                notifyItemChanged(seletecdAddress)
-            seletecdAddress = holder.adapterPosition
-            notifyItemChanged(seletecdAddress)
+            if(selectedAddress >= 0)
+                notifyItemChanged(selectedAddress)
+            selectedAddress = holder.adapterPosition
+            notifyItemChanged(selectedAddress)
             onClick?.invoke(address)
+        }
+    }
+    init {
+        differ.addListListener { _, _ ->
+            notifyItemChanged(selectedAddress)
         }
     }
 

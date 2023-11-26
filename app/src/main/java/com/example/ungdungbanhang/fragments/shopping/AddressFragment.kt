@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ungdungbanhang.data.Address
 import com.example.ungdungbanhang.databinding.FragmentAddressBinding
 import com.example.ungdungbanhang.util.Resource
+import com.example.ungdungbanhang.util.hideBottomNavigation
 import com.example.ungdungbanhang.viewmodel.AddressViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -55,12 +56,18 @@ class AddressFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        hideBottomNavigation()
         binding = FragmentAddressBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // xu ly su kien click quay ve
+        binding.imageAddressClose.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         // su kien button luu dia chi
         binding.apply {
