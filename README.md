@@ -33,7 +33,7 @@
 # Giỏ hàng
 <img src="https://user-images.githubusercontent.com/105142161/283728661-bd811804-57be-4096-8c61-c3d3988524b4.png" alt="..." width="250" />
 # Thanh toán
-<img src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/648e2512-fdb6-4092-b3ad-cd1949a65cef" alt="..." width="250" />
+<img src="https://private-user-images.githubusercontent.com/105142161/285637034-648e2512-fdb6-4092-b3ad-cd1949a65cef.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDA5ODYyODEsIm5iZiI6MTcwMDk4NTk4MSwicGF0aCI6Ii8xMDUxNDIxNjEvMjg1NjM3MDM0LTY0OGUyNTEyLWZkYjYtNDA5Mi1iM2FkLWNkMTk0OWE2NWNlZi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBSVdOSllBWDRDU1ZFSDUzQSUyRjIwMjMxMTI2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDIzMTEyNlQwODA2MjFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT04Y2NiMDI3Yjc3NjZhZGNjYTI3YmNkOWJjMGVkZTgxYjI1ZWE5MzBkMTg5NWQyOTM1YzI5NmEzZmE0NGFmZGRjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZhY3Rvcl9pZD0wJmtleV9pZD0wJnJlcG9faWQ9MCJ9.ZqZXJrnmhUx3o84zhU6AjVa5MGrAKLOi1KiFLiDKgrk" alt="..." width="250" />
 # Thông tin địa chỉ
 <img src="https://github.com/levietanh2003/UngDungBanHang_Kotlinn/assets/105142161/c94d828a-d6e7-4c3e-bac3-0107a49676b6" alt="..." width="250" />
 
