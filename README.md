@@ -40,9 +40,11 @@
 
 ## Công nghệ sử dụng
 
-- Ngôn ngữ : Kotlin MVVM
-- Cơ sỡ dữ liệu: Firebase
-
+- Ngôn ngữ : Kotlin 
+- Firebase : firestore, firebase aut, firebase storage, firebase cloud messeging
+- MVVM
+- Coroutines and flows
+  
 ## Đóng góp
 
 Chúng tôi rất hoan nghênh mọi đóng góp từ cộng đồng. Nếu bạn muốn đóng góp vào dự án, vui lòng tạo một pull request và chúng tôi sẽ xem xét nó.
