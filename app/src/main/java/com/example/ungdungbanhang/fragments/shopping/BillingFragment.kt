@@ -1,5 +1,6 @@
 package com.example.ungdungbanhang.fragments.shopping
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,24 +16,33 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ungdungbanhang.R
 import com.example.ungdungbanhang.adapters.AddressAdapter
 import com.example.ungdungbanhang.adapters.BillingProductsAdapter
+import com.example.ungdungbanhang.data.Address
 import com.example.ungdungbanhang.data.CartProduct
+import com.example.ungdungbanhang.data.Order
+import com.example.ungdungbanhang.data.OrderStatus
 import com.example.ungdungbanhang.databinding.FragmentBillingBinding
 import com.example.ungdungbanhang.helper.formatPriceVN
 import com.example.ungdungbanhang.util.HorizontalItemDecoration
 import com.example.ungdungbanhang.util.Resource
 import com.example.ungdungbanhang.viewmodel.BillingViewModel
+import com.example.ungdungbanhang.viewmodel.OrderViewModel
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import java.util.*
+
 @AndroidEntryPoint
 class BillingFragment: Fragment() {
     private lateinit var binding: FragmentBillingBinding
     private val addressAdapter by lazy { AddressAdapter() }
     private val billingProductsAdapter by lazy { BillingProductsAdapter() }
-    private val viewModel by viewModels<BillingViewModel>()
+    private val billingViewModel by viewModels<BillingViewModel>()
     private val args by navArgs<BillingFragmentArgs>()
     private var products = emptyList<CartProduct>()
     private var totalPrice = 0f
 
+    private var selectedAddress: Address? = null
+    private val orderViewModel by viewModels<OrderViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,8 +73,13 @@ class BillingFragment: Fragment() {
             findNavController().navigate(R.id.action_billingFragment_to_addressFragment)
         }
 
+        // luu chon dia chi giao hang
+        addressAdapter.onClick = {
+            selectedAddress = it
+        }
+
         lifecycleScope.launchWhenStarted {
-            viewModel.address.collectLatest {
+            billingViewModel.address.collectLatest {
                 when(it){
                     is Resource.Loading -> {
                         binding.progressbarAddress.visibility = View.VISIBLE
@@ -82,9 +97,70 @@ class BillingFragment: Fragment() {
             }
         }
 
+        lifecycleScope.launchWhenStarted {
+            orderViewModel.order.collectLatest {
+                when (it) {
+                    is Resource.Loading -> {
+                        binding.buttonPlaceOrder.startAnimation()
+                    }
+
+                    is Resource.Success -> {
+                        binding.buttonPlaceOrder.revertAnimation()
+                        findNavController().navigateUp()
+                        Snackbar.make(requireView(), "Đơn hàng của bạn đã được đặt", Snackbar.LENGTH_LONG)
+                            .show()
+                    }
+
+                    is Resource.Error -> {
+                        binding.buttonPlaceOrder.revertAnimation()
+                        Toast.makeText(requireContext(), "Đã có lỗi xảy ra ${it.message}", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+
+                    else -> Unit
+                }
+            }
+        }
+
         billingProductsAdapter.differ.submitList(products)
         // hien thi tong tien san pham
         binding.tvTotalPrice.text = formatPriceVN(totalPrice.toDouble())
+
+        // su kien thanh dat hang
+        binding.buttonPlaceOrder.setOnClickListener {
+            if (selectedAddress == null) {
+                Toast.makeText(requireContext(), "Hãy chọn địa chỉ giao hàng", Toast.LENGTH_SHORT)
+                    .show()
+                return@setOnClickListener
+            }
+            showOrderConfirmationDialog()
+        }
+    }
+
+    private fun showOrderConfirmationDialog() {
+        val alertDialog = AlertDialog.Builder(requireContext()).apply {
+            setTitle("Xác nhận")
+            setMessage("Bạn có muốn đặt hàng các mặt hàng trong giỏ hàng của bạn?")
+            setNegativeButton("Hủy") { dialog, _ ->
+                dialog.dismiss()
+            }
+            setPositiveButton("Có") { dialog, _ ->
+                val currentDate = System.currentTimeMillis()
+                val orderDate = Date(currentDate)
+
+                val order = Order(
+                    OrderStatus.Ordered.status,
+                    totalPrice,
+                    products,
+                    selectedAddress!!,
+                    dateOrder = orderDate
+                )
+                orderViewModel.placeOrder(order)
+                dialog.dismiss()
+            }
+        }
+        alertDialog.create()
+        alertDialog.show()
     }
 
     private fun setUpAddressRv() {
