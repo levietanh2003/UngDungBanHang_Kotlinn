@@ -18,8 +18,8 @@ import com.example.ungdungbanhang.adapters.AddressAdapter
 import com.example.ungdungbanhang.adapters.BillingProductsAdapter
 import com.example.ungdungbanhang.data.Address
 import com.example.ungdungbanhang.data.CartProduct
-import com.example.ungdungbanhang.data.Order
-import com.example.ungdungbanhang.data.OrderStatus
+import com.example.ungdungbanhang.data.order.Order
+import com.example.ungdungbanhang.data.order.OrderStatus
 import com.example.ungdungbanhang.databinding.FragmentBillingBinding
 import com.example.ungdungbanhang.helper.formatPriceVN
 import com.example.ungdungbanhang.util.HorizontalItemDecoration
@@ -29,7 +29,6 @@ import com.example.ungdungbanhang.viewmodel.OrderViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import java.util.*
 
 @AndroidEntryPoint
 class BillingFragment: Fragment() {
@@ -145,15 +144,15 @@ class BillingFragment: Fragment() {
                 dialog.dismiss()
             }
             setPositiveButton("Có") { dialog, _ ->
-                val currentDate = System.currentTimeMillis()
-                val orderDate = Date(currentDate)
+                //val currentDate = System.currentTimeMillis()
+                //val orderDate = Date(currentDate)
 
                 val order = Order(
                     OrderStatus.Ordered.status,
                     totalPrice,
                     products,
                     selectedAddress!!,
-                    dateOrder = orderDate
+                    //dateOrder = orderDate
                 )
                 orderViewModel.placeOrder(order)
                 dialog.dismiss()

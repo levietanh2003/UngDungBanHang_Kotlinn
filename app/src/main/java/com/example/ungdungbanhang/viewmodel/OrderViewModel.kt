@@ -2,7 +2,7 @@ package com.example.ungdungbanhang.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ungdungbanhang.data.Order
+import com.example.ungdungbanhang.data.order.Order
 import com.example.ungdungbanhang.util.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
