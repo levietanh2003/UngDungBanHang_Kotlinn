@@ -21,3 +21,22 @@ fun getOrderStatus(status: String): OrderStatus{
         else -> OrderStatus.Ordered
     }
 }
+/*
+* enum class OrderStatus(val status: String) {
+    Ordered("Đã đặt hàng"),
+    Canceled("Hủy"),
+    Confirmed("Đã xác nhận"),
+    Shipped("Đã vận chuyển"),
+    Delivered("Đã giao hàng"),
+    Returned("Đã trả hàng")
+}
+
+// Lấy trạng thái đơn hàng hiện tại
+// Lấy trạng thái đơn hàng hiện tại
+fun getOrderStatus(status: String): OrderStatus =
+    OrderStatus.values().find { it.status == status } ?: run {
+        // Xử lý trường hợp không khớp ở đây, có thể log hoặc thông báo lỗi
+        OrderStatus.Ordered
+    }
+*
+* */

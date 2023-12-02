@@ -1,0 +1,66 @@
+package com.example.ungdungbanhang.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.ungdungbanhang.data.order.Order
+import com.example.ungdungbanhang.util.Resource
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class AllOrdersViewModel @Inject constructor(
+    private val firestore: FirebaseFirestore,
+    private val auth : FirebaseAuth
+
+): ViewModel(){
+
+    private val _allOrders = MutableStateFlow<Resource<List<Order>>>(Resource.Unspecified())
+    val allOrders = _allOrders.asStateFlow()
+
+
+    init {
+        getAllOrders()
+    }
+
+    // lay ra cac don hang duoc order
+    fun getAllOrders(){
+        viewModelScope.launch {
+            _allOrders.emit(Resource.Loading())
+        }
+
+        // thuc hien truy cap vao collection lay danh sach don hang
+        /*firestore.collection("user").document(auth.uid!!).collection("orders")
+            .addSnapshotListener{ value, error ->
+                if(error != null || value == null){
+                    // neu co loi khong tin thay du lieu thong bao
+                    viewModelScope.launch {
+                        _allOrders.emit(Resource.Error(error?.message.toString()))
+                    }
+                }else{
+                    // phan tich du lieu phat ra trang thai thanh cong
+                    allOrdersDocuments = value.documents
+                    val allOrders = value.toObjects(StructuredQuery.Order::class.java)
+                    viewModelScope.launch { _allOrders.emit(Resource.Success(allOrders)) }
+                }
+            }*/
+
+        // thuc hien truy cap vao collection lay danh sach don hang
+        firestore.collection("user").document(auth.uid!!).collection("orders").get()
+            .addOnSuccessListener {
+                val orders = it.toObjects(Order::class.java)
+                viewModelScope.launch {
+                    _allOrders.emit(Resource.Success(orders))
+                }
+            }.addOnFailureListener {
+                viewModelScope.launch {
+                    _allOrders.emit(Resource.Error(it.message.toString()))
+                }
+            }
+    }
+}
