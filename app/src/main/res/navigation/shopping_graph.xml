@@ -78,5 +78,10 @@
             android:name="com.example.ungdungbanhang.fragments.settings.UserAccountFragment"
             android:label="UserAccountFragment"
             tools:layout="@layout/fragment_user_account"/>
+    <fragment
+            android:id="@+id/allOrderFragment2"
+            android:name="com.example.ungdungbanhang.fragments.settings.AllOrderFragment"
+            android:label="AllOrderFragment"
+            tools:layout="@layout/fragment_orders"/>
 
 </navigation>

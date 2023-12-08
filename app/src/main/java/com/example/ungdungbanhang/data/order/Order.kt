@@ -8,10 +8,10 @@ import kotlin.random.Random.Default.nextLong
 
 
 data class Order (
-        val orderStatus: String,
-        val totalPrice: Float,
-        val products: List<CartProduct>,
-        val address: Address,
+        val orderStatus: String = "",
+        val totalPrice: Float = 0f,
+        val products: List<CartProduct> = emptyList(),
+        val address: Address = Address(),
         // cho date là ngày hiện tại
         val date: String = SimpleDateFormat("yyyy-MM-dd").format(Date()),
         // mã đơn hàng
