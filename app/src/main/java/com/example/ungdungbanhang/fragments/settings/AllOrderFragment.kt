@@ -16,6 +16,7 @@ import com.example.ungdungbanhang.util.Resource
 import com.example.ungdungbanhang.viewmodel.AllOrdersViewModel
 import com.example.ungdungbanhang.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class AllOrderFragment: Fragment() {
@@ -35,22 +36,21 @@ class AllOrderFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpOrdersRv()
+        setupOrdersRv()
 
         // luong xu ly load don hang len giao dien
         lifecycleScope.launchWhenStarted {
-            // thuc hien hanh dong xu ly Live Data
-            viewModel.allOrders.collect {
-                when(it){
+            viewModel.getAllOrders()
+            viewModel.allOrders.collectLatest {
+                when (it) {
                     is Resource.Loading -> {
                         binding.progressbarAllOrders.visibility = View.VISIBLE
                     }
                     is Resource.Success -> {
                         binding.progressbarAllOrders.visibility = View.GONE
                         ordersAdapter.differ.submitList(it.data)
-                        if(it.data.isNullOrEmpty()){
+                        if (it.data.isNullOrEmpty()) {
                             binding.tvEmptyOrders.visibility = View.VISIBLE
-                            Toast.makeText(requireContext(), "Không có đơn hàng nào!", Toast.LENGTH_SHORT).show()
                         }
                     }
                     is Resource.Error -> {
@@ -64,7 +64,7 @@ class AllOrderFragment: Fragment() {
     }
 
     // cai dat recyclerview
-    private fun setUpOrdersRv() {
+    private fun setupOrdersRv() {
         binding.rvAllOrders.apply {
             adapter = ordersAdapter
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
