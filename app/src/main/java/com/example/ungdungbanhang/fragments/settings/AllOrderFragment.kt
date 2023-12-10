@@ -37,8 +37,9 @@ class AllOrderFragment: Fragment() {
 
         setUpOrdersRv()
 
-        // luong xu ly
+        // luong xu ly load don hang len giao dien
         lifecycleScope.launchWhenStarted {
+            // thuc hien hanh dong xu ly Live Data
             viewModel.allOrders.collect {
                 when(it){
                     is Resource.Loading -> {
@@ -62,6 +63,7 @@ class AllOrderFragment: Fragment() {
         }
     }
 
+    // cai dat recyclerview
     private fun setUpOrdersRv() {
         binding.rvAllOrders.apply {
             adapter = ordersAdapter

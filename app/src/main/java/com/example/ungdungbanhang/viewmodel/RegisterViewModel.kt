@@ -5,12 +5,10 @@ import com.example.ungdungbanhang.data.User
 import com.example.ungdungbanhang.util.*
 import com.example.ungdungbanhang.util.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.runBlocking
 //import java.util.concurrent.Flow
 import javax.inject.Inject

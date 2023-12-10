@@ -1,11 +1,7 @@
 package com.example.ungdungbanhang.viewmodel
 
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.ungdungbanhang.data.User
 import com.example.ungdungbanhang.util.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

@@ -34,21 +34,6 @@ class AllOrdersViewModel @Inject constructor(
             _allOrders.emit(Resource.Loading())
         }
 
-        // thuc hien truy cap vao collection lay danh sach don hang
-        /*firestore.collection("user").document(auth.uid!!).collection("orders")
-            .addSnapshotListener{ value, error ->
-                if(error != null || value == null){
-                    // neu co loi khong tin thay du lieu thong bao
-                    viewModelScope.launch {
-                        _allOrders.emit(Resource.Error(error?.message.toString()))
-                    }
-                }else{
-                    // phan tich du lieu phat ra trang thai thanh cong
-                    allOrdersDocuments = value.documents
-                    val allOrders = value.toObjects(StructuredQuery.Order::class.java)
-                    viewModelScope.launch { _allOrders.emit(Resource.Success(allOrders)) }
-                }
-            }*/
 
         // thuc hien truy cap vao collection lay danh sach don hang
         firestore.collection("user").document(auth.uid!!).collection("orders").get()

@@ -1,26 +1,27 @@
 package com.example.ungdungbanhang.data.order
 
 sealed class OrderStatus(val status: String){
-    object Ordered: OrderStatus("Đã đặt hàng")
-    object Canceled: OrderStatus("Hủy")
-    object Confirmed: OrderStatus("Đã xác nhận")
-    object Shipped: OrderStatus("Đã vận chuyển")
-    object Delivered: OrderStatus("Đã giao hàng")
-    object Returned: OrderStatus("Đã trả hàng")
+    object Ordered: OrderStatus("Ordered")
+    object Canceled: OrderStatus("Canceled")
+    object Confirmed: OrderStatus("Confirmed")
+    object Shipped: OrderStatus("Shipped")
+    object Delivered: OrderStatus("Delivered")
+    object Returned: OrderStatus("Returned")
 }
 
 // lay ra trang thai don hang hien tai
 fun getOrderStatus(status: String): OrderStatus{
     return when (status) {
-        "Đã đặt hàng" -> OrderStatus.Ordered
-        "Hủy" -> OrderStatus.Canceled
-        "Đã xác nhận" -> OrderStatus.Confirmed
-        "Đã vận chuyển" -> OrderStatus.Shipped
-        "Đã giao hàng" -> OrderStatus.Delivered
-        "Đã trả hàng" -> OrderStatus.Returned
+        "Ordered" -> OrderStatus.Ordered
+        "Canceled" -> OrderStatus.Canceled
+        "Confirmed" -> OrderStatus.Confirmed
+        "Shipped" -> OrderStatus.Shipped
+        "Delivered" -> OrderStatus.Delivered
+        "Returned" -> OrderStatus.Returned
         else -> OrderStatus.Ordered
     }
 }
+// cách xử lý đơn trang thái đơn hàng bằng enum
 /*
 * enum class OrderStatus(val status: String) {
     Ordered("Đã đặt hàng"),
