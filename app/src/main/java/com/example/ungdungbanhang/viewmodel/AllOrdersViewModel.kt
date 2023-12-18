@@ -27,8 +27,11 @@ class AllOrdersViewModel @Inject constructor(
     val allOrders = _allOrders.asStateFlow()
 
 
+    init {
+        getAllOrders()
+    }
     // lay ra cac don hang duoc order
-    /*fun getAllOrders(){
+    fun getAllOrders(){
         viewModelScope.launch {
             _allOrders.emit(Resource.Loading())
         }
@@ -38,6 +41,9 @@ class AllOrdersViewModel @Inject constructor(
             .addOnSuccessListener {
                 val orders = it.toObjects(Order::class.java)
                 viewModelScope.launch {
+                    val userId = auth.uid
+                    // kiểm tra id user và số lượng đơn hàng
+                    Log.d("Firestore", "Fetched ${orders.size}Firestore $userId")
                     _allOrders.emit(Resource.Success(orders))
                 }
             }.addOnFailureListener {
@@ -47,8 +53,8 @@ class AllOrdersViewModel @Inject constructor(
             }
     }
 
-     */
-    suspend fun getAllOrders() {
+
+    /*suspend fun getAllOrders() {
         viewModelScope.launch {
             _allOrders.emit(Resource.Loading())
         }
@@ -85,4 +91,6 @@ class AllOrdersViewModel @Inject constructor(
             }
         }
     }
+
+     */
 }

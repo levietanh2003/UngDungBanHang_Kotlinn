@@ -3,8 +3,10 @@ package com.example.ungdungbanhang.adapters
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.example.ungdungbanhang.R
@@ -50,10 +52,9 @@ class AllOrdersAdapter : Adapter<AllOrdersAdapter.OrdersViewHolder>() {
         }
     }
 
-
     private val diffUtil = object : DiffUtil.ItemCallback<Order>() {
         override fun areItemsTheSame(oldItem: Order, newItem: Order): Boolean {
-            return oldItem.products == newItem.products
+            return oldItem.orderId == newItem.orderId
         }
 
         override fun areContentsTheSame(oldItem: Order, newItem: Order): Boolean {

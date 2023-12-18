@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/shopping_graph"
-        app:startDestination="@id/allOrderFragment2">
+        app:startDestination="@id/OrderFragment">
 
     <fragment
             android:id="@+id/homeFragment"
@@ -79,9 +79,22 @@
             android:label="UserAccountFragment"
             tools:layout="@layout/fragment_user_account"/>
     <fragment
-            android:id="@+id/allOrderFragment2"
+            android:id="@+id/OrderFragment"
             android:name="com.example.ungdungbanhang.fragments.settings.AllOrderFragment"
             android:label="AllOrderFragment"
-            tools:layout="@layout/fragment_orders"/>
+            tools:layout="@layout/fragment_orders">
+        <action
+                android:id="@+id/action_OrderFragment_to_orderDetailFragment"
+                app:destination="@id/orderDetailFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/orderDetailFragment"
+            android:name="com.example.ungdungbanhang.fragments.settings.OrderDetailFragment"
+            android:label="OrderDetailFragment"
+            tools:layout="@layout/fragment_order_detail">
+        <argument
+                android:name="order"
+                app:argType="com.example.ungdungbanhang.data.order.Order" />
+    </fragment>
 
 </navigation>

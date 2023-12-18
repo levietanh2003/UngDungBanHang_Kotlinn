@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.ungdungbanhang.adapters.AllOrdersAdapter
@@ -40,7 +42,7 @@ class AllOrderFragment: Fragment() {
 
         // luong xu ly load don hang len giao dien
         lifecycleScope.launchWhenStarted {
-            viewModel.getAllOrders()
+            //viewModel.getAllOrders()
             viewModel.allOrders.collectLatest {
                 when (it) {
                     is Resource.Loading -> {
@@ -60,6 +62,16 @@ class AllOrderFragment: Fragment() {
                     else -> Unit
                 }
             }
+        }
+
+        // xem chi tiet don hang trong gio hang
+        ordersAdapter.onClick = {
+            val action = AllOrderFragmentDirections.actionOrderFragmentToOrderDetailFragment(it)
+            findNavController().navigate(action)
+        }
+        binding.imageCloseOrders.setOnClickListener {
+            requireActivity().onBackPressed()
+            //findNavController().navigateUp()
         }
     }
 

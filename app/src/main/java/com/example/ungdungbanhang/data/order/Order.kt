@@ -1,12 +1,14 @@
 package com.example.ungdungbanhang.data.order
 
+import android.os.Parcelable
 import com.example.ungdungbanhang.data.Address
 import com.example.ungdungbanhang.data.CartProduct
+import kotlinx.parcelize.Parcelize
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.random.Random
 
-
+@Parcelize
 data class Order (
         val orderStatus: String = "",
         val totalPrice: Float = 0f,
@@ -17,4 +19,4 @@ data class Order (
         // mã đơn hàng
         //val orderId: Long = nextLong(0,100_000_000_000) + totalPrice.toLong()
         val orderId: Long = (1..10).joinToString("") { Random.nextInt(0, 10).toString() }.toLong()
-)
+): Parcelable
