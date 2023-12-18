@@ -44,10 +44,17 @@ class OrderDetailFragment: Fragment() {
 
         binding.apply {
 
+<<<<<<< HEAD
             tvOrderId.text = "Đơn hàng #${order.orderId}"
 
 
             /*stepView.setSteps(
+=======
+            tvOrderId.text = "Order #${order.orderId}"
+
+
+            stepView.setSteps(
+>>>>>>> 6250488 (chuc nang profile)
                 mutableListOf(
                     OrderStatus.Ordered.status,
                     OrderStatus.Confirmed.status,
@@ -61,13 +68,18 @@ class OrderDetailFragment: Fragment() {
                 is OrderStatus.Confirmed -> 1
                 is OrderStatus.Shipped -> 2
                 is OrderStatus.Delivered -> 3
+<<<<<<< HEAD
                 is OrderStatus.Canceled -> 4
                 else -> 4
+=======
+                else -> 0
+>>>>>>> 6250488 (chuc nang profile)
             }
 
             stepView.go(currentOrderState, false)
             if (currentOrderState == 3) {
                 stepView.done(true)
+<<<<<<< HEAD
             }*/
             val orderStatus = getOrderStatus(order.orderStatus)
             val isCancelled = orderStatus is OrderStatus.Canceled
@@ -106,12 +118,19 @@ class OrderDetailFragment: Fragment() {
             }
 
 
+=======
+            }
+
+>>>>>>> 6250488 (chuc nang profile)
             tvFullName.text = order.address.fullName
             tvAddress.text = "${order.address.street} ${order.address.city}"
             tvPhoneNumber.text = order.address.phoneNumber
 
             tvTotalPrice.text = formatPriceVN(order.totalPrice.toDouble())
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6250488 (chuc nang profile)
         }
 
         billingProductsAdapter.differ.submitList(order.products)

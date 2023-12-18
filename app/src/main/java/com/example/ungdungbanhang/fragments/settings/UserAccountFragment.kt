@@ -110,6 +110,10 @@ class UserAccountFragment: Fragment() {
             intent.type = "image/*"
             imageActivityResultLauncher.launch(intent)
         }
+        // su ly su kien tro ve
+        binding.imageCloseUserAccount.setOnClickListener {
+            findNavController().navigateUp()
+        }
 
         // su ly su kien quen mat khau
         binding.tvUpdatePassword.setOnClickListener {
