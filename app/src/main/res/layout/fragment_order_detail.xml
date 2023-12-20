@@ -80,20 +80,20 @@
                     app:sv_stepNumberTextSize="12sp"
                     app:sv_animationType="Line"
                     app:sv_doneTextColor="@color/g_gray700" />
+
+            <TextView
+                    android:id="@+id/tvCancellationMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="Đơn hàng đã được hủy"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+
+                    />
         </LinearLayout>
-        <TextView
-                android:id="@+id/tvCancellationMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đơn hàng đã được hủy"
-                android:fontFamily="@font/poppins_light"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/toolbarOrderDetails"
-                app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintEnd_toEndOf="@id/guideline2" />
 
         <TextView
                 android:id="@+id/tvShippingAddress"

@@ -39,57 +39,20 @@ class OrderDetailFragment: Fragment() {
         setupOrderRv()
         binding.imageCloseOrder.setOnClickListener {
             requireActivity().onBackPressed()
-            //findNavController().navigateUp()
         }
 
         binding.apply {
 
-<<<<<<< HEAD
             tvOrderId.text = "Đơn hàng #${order.orderId}"
-
-
-            /*stepView.setSteps(
-=======
-            tvOrderId.text = "Order #${order.orderId}"
-
-
-            stepView.setSteps(
->>>>>>> 6250488 (chuc nang profile)
-                mutableListOf(
-                    OrderStatus.Ordered.status,
-                    OrderStatus.Confirmed.status,
-                    OrderStatus.Shipped.status,
-                    OrderStatus.Delivered.status,
-                )
-            )
-
-            val currentOrderState = when (getOrderStatus(order.orderStatus)) {
-                is OrderStatus.Ordered -> 0
-                is OrderStatus.Confirmed -> 1
-                is OrderStatus.Shipped -> 2
-                is OrderStatus.Delivered -> 3
-<<<<<<< HEAD
-                is OrderStatus.Canceled -> 4
-                else -> 4
-=======
-                else -> 0
->>>>>>> 6250488 (chuc nang profile)
-            }
-
-            stepView.go(currentOrderState, false)
-            if (currentOrderState == 3) {
-                stepView.done(true)
-<<<<<<< HEAD
-            }*/
             val orderStatus = getOrderStatus(order.orderStatus)
             val isCancelled = orderStatus is OrderStatus.Canceled
 
             if (isCancelled) {
-                // If the order is cancelled, hide stepView and show cancellation message
+                // neu don hang dang o trang thai "Cancelled" thi hien thi thong bao an stepView
                 stepView.visibility = View.GONE
                 tvCancellationMessage.visibility = View.VISIBLE
             } else {
-                // For non-cancelled orders, show stepView and set regular steps
+                // neu don hang khong o trang thai "Cancelled" thi hien stepView
                 stepView.visibility = View.VISIBLE
                 stepView.setSteps(
                     mutableListOf(
@@ -111,30 +74,19 @@ class OrderDetailFragment: Fragment() {
 
                 stepView.go(currentOrderState, false)
 
-                // Mark the step as done for the last state (Delivered)
+                // quy trinh bang stepView thu 3 khi don hang da duoc giao
                 if (currentOrderState == 3) {
                     stepView.done(true)
                 }
             }
-
-
-=======
-            }
-
->>>>>>> 6250488 (chuc nang profile)
             tvFullName.text = order.address.fullName
             tvAddress.text = "${order.address.street} ${order.address.city}"
             tvPhoneNumber.text = order.address.phoneNumber
 
             tvTotalPrice.text = formatPriceVN(order.totalPrice.toDouble())
-<<<<<<< HEAD
-
-=======
->>>>>>> 6250488 (chuc nang profile)
-        }
-
+            }
         billingProductsAdapter.differ.submitList(order.products)
-    }
+        }
 
     private fun setupOrderRv() {
         binding.rvProducts.apply {

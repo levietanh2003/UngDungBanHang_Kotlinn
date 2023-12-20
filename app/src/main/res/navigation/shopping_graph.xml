@@ -3,11 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/shopping_graph"
-<<<<<<< HEAD
-        app:startDestination="@id/OrderFragment">
-=======
         app:startDestination="@id/homeFragment">
->>>>>>> 6250488 (chuc nang profile)
 
     <fragment
             android:id="@+id/homeFragment"
