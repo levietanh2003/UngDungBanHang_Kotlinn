@@ -2,6 +2,7 @@ package com.example.ungdungbanhang.fragments.shopping
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,8 +28,14 @@ import com.example.ungdungbanhang.util.Resource
 import com.example.ungdungbanhang.viewmodel.BillingViewModel
 import com.example.ungdungbanhang.viewmodel.OrderViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.auth.User
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import java.util.*
+import javax.mail.*
+import javax.mail.internet.InternetAddress
+import javax.mail.internet.MimeMessage
 
 @AndroidEntryPoint
 class BillingFragment: Fragment() {
@@ -42,6 +49,7 @@ class BillingFragment: Fragment() {
 
     private var selectedAddress: Address? = null
     private val orderViewModel by viewModels<OrderViewModel>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,6 +59,7 @@ class BillingFragment: Fragment() {
         return binding.root
     }
 
+    // gia tri dem khi don hang dat thanh cong
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -108,6 +117,9 @@ class BillingFragment: Fragment() {
                         findNavController().navigateUp()
                         Snackbar.make(requireView(), "Đơn hàng của bạn đã được đặt", Snackbar.LENGTH_LONG)
                             .show()
+
+                        // xu ly gui gmail khi xac nhan dat hang
+
                     }
 
                     is Resource.Error -> {
@@ -135,6 +147,40 @@ class BillingFragment: Fragment() {
             showOrderConfirmationDialog()
         }
     }
+    // ham xu ly gui gmail xac nhan dat hang
+    /*fun  sendOrderConfirmationEmail(userEmail: String, orderDetails: String){
+        // Gọi hàm gửi email từ đoạn mã đã cung cấp trong câu trả lời trước
+        sendEmail(userEmail, "Đơn hàng đã được đặt thành công", orderDetails)
+    }*/
+
+    /*private fun sendEmail(to: String, subject: String, body: String) {
+        val properties = Properties()
+        properties["mail.smtp.host"] = "your_smtp_host"
+        properties["mail.smtp.port"] = "your_smtp_port"
+        properties["mail.smtp.auth"] = "true"
+        properties["mail.smtp.starttls.enable"] = "true"
+
+        val session = Session.getInstance(properties, object : Authenticator() {
+            override fun getPasswordAuthentication(): PasswordAuthentication {
+                return PasswordAuthentication("levietanhzz108@gmail.com", "01082003md.")
+            }
+        })
+
+        try {
+            val mimeMessage = MimeMessage(session)
+            mimeMessage.setFrom(InternetAddress("your_email@gmail.com"))
+            mimeMessage.addRecipient(Message.RecipientType.TO, InternetAddress(to))
+            mimeMessage.subject = subject
+            mimeMessage.setText(body)
+
+            Transport.send(mimeMessage)
+
+            Log.d("Email", "Gửi Email thành công.")
+
+        } catch (e: MessagingException) {
+            Log.e("Email", "Gửi Email thất bại: ${e.message}")
+        }
+    }*/
 
     private fun showOrderConfirmationDialog() {
         val alertDialog = AlertDialog.Builder(requireContext()).apply {
